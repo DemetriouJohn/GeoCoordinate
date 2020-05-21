@@ -9,7 +9,7 @@ namespace StandardGIS
 
     public class GeoCoordinate : IEquatable<GeoCoordinate>
     {
-        private const float EarthRadius = 6376500.0f;
+        private const float EarthRadius = 637100.0f;
 
         ///<summary>
         /// An empty instance of GeoCoordinate class that has unknown position
@@ -180,10 +180,65 @@ namespace StandardGIS
                     return GetDistanceHaversine(other);
                 case DistanceFormula.SphericalLawOfCosinus:
                     return GetDistanceSphericalLawOfCosines(other);
+                case DistanceFormula.Vicenty:
+                    return GetDistanceVicenty(other);
                 default:
                     throw new NotImplementedException();
             }
 
+        }
+
+        private double GetDistanceVicenty(GeoCoordinate other)
+        {
+            double flat = 1 / 298.257223563;    //flattening of earth
+            double rpol = (1 - flat) * EarthRadius;
+
+            double sinSigma = 0;
+            double cosSigma = 0;
+            double sigma = 0;
+            double sin_alpha = 0;
+            double cosSqAlpha = 0;
+            double cos2sigma = 0;
+            double C = 0;
+            double lam_pre = 0;
+
+            // convert to radians
+            var latp = Math.PI * Latitude / 180.0;
+            var latc = Math.PI * other.Latitude / 180.0;
+            var longp = Math.PI * Longitude / 180.0;
+            var longc = Math.PI * other.Longitude / 180.0;
+
+            double u1 = Math.Atan((1 - flat) * Math.Tan(latc));
+            double u2 = Math.Atan((1 - flat) * Math.Tan(latp));
+
+            double lon = longp - longc;
+            double lam = lon;
+            double tol = Math.Pow(10f, -12f); // iteration tolerance
+            double diff = 1;
+            while (Math.Abs(diff) > tol)
+            {
+                sinSigma = Math.Sqrt(Math.Pow((Math.Cos(u2) * Math.Sin(lam)), 2) + Math.Pow(Math.Cos(u1) * Math.Sin(u2) - Math.Sin(u1) * Math.Cos(u2) * Math.Cos(lam), 2));
+                cosSigma = Math.Sin(u1) * Math.Sin(u2) + Math.Cos(u1) * Math.Cos(u2) * Math.Cos(lam);
+                sigma = Math.Atan(sinSigma / cosSigma);
+                sin_alpha = (Math.Cos(u1) * Math.Cos(u2) * Math.Sin(lam)) / sinSigma;
+                cosSqAlpha = 1 - Math.Pow(sin_alpha, 2);
+                cos2sigma = cosSigma - ((2 * Math.Sin(u1) * Math.Sin(u2)) / cosSqAlpha);
+                C = (flat / 16) * cosSqAlpha * (4 + flat * (4 - 3 * cosSqAlpha));
+                lam_pre = lam;
+                lam = lon + (1 - C) * flat * sin_alpha * (sigma + C * sinSigma * (cos2sigma + C * cosSigma * (2 * Math.Pow(cos2sigma, 2) - 1)));
+                diff = Math.Abs(lam_pre - lam);
+            }
+
+            double usq = cosSqAlpha * ((Math.Pow(EarthRadius, 2) - Math.Pow(rpol, 2)) / Math.Pow(rpol, 2));
+            double A = 1 + (usq / 16384) * (4096 + usq * (-768 + usq * (320 - 175 * usq)));
+            double B = (usq / 1024) * (256 + usq * (-128 + usq * (74 - 47 * usq)));
+            double delta_sig = B * sinSigma * (cos2sigma + 0.25 * B * (cosSigma * (-1 + 2 * Math.Pow(cos2sigma, 2)) -
+                                                                 (1 / 6) * B * cos2sigma * (-3 + 4 * Math.Pow(sinSigma, 2)) *
+                                                                 (-3 + 4 * Math.Pow(cos2sigma, 2))));
+            double dis = rpol * A * (sigma - delta_sig);
+            double azi1 = Math.Atan2((Math.Cos(u2) * Math.Sin(lam)), (Math.Cos(u1) * Math.Sin(u2) - Math.Sin(u1) * Math.Cos(u2) * Math.Cos(lam)));
+
+            return dis;
         }
 
         private double GetDistanceHaversine(GeoCoordinate other)

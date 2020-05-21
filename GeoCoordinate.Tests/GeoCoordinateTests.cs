@@ -132,22 +132,31 @@ namespace StandardGIS.Tests
             var start = new GeoCoordinate(1, 1);
             var end = new GeoCoordinate(5, 5);
             var distance = start.GetDistanceTo(end, DistanceFormula.Haversine);
-            var expected = 629060.759879635;
-            var delta = distance - expected;
+            var expected = 62851.816846125;
 
-            Assert.Equal(distance, expected, 9);
+            Assert.Equal(expected, distance, 9);
         }
 
-         [Fact]
+        [Fact]
         public void GeoCoordinate_GetDistanceToUsingSphericalLawOfCosinus_ReturnsExpectedDistance()
         {
             var start = new GeoCoordinate(1, 1);
             var end = new GeoCoordinate(5, 5);
             var distance = start.GetDistanceTo(end, DistanceFormula.SphericalLawOfCosinus);
-            var expected = 629060.759879635;
-            var delta = distance - expected;
+            var expected = 62851.816846125;
 
-            Assert.Equal(distance, expected, 9);
+            Assert.Equal(expected, distance, 9);
+        }
+
+                [Fact]
+        public void GeoCoordinate_GetDistanceToUsingVicenty_ReturnsExpectedDistance()
+        {
+            var start = new GeoCoordinate(1, 1);
+            var end = new GeoCoordinate(5, 5);
+            var distance = start.GetDistanceTo(end, DistanceFormula.Vicenty);
+            var expected = 62642.77580421;
+
+            Assert.Equal(expected, distance, 9);
         }
     }
 }
