@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <PackageId>StandardGIS</PackageId>
@@ -8,5 +7,7 @@
     <Company>devsanon</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
-
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118"/>
+  </ItemGroup>
 </Project>
