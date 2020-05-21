@@ -137,5 +137,17 @@ namespace StandardGIS.Tests
 
             Assert.Equal(distance, expected, 9);
         }
+
+         [Fact]
+        public void GeoCoordinate_GetDistanceToUsingSphericalLawOfCosinus_ReturnsExpectedDistance()
+        {
+            var start = new GeoCoordinate(1, 1);
+            var end = new GeoCoordinate(5, 5);
+            var distance = start.GetDistanceTo(end, DistanceFormula.SphericalLawOfCosinus);
+            var expected = 629060.759879635;
+            var delta = distance - expected;
+
+            Assert.Equal(distance, expected, 9);
+        }
     }
 }

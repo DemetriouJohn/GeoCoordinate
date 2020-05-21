@@ -178,6 +178,8 @@ namespace StandardGIS
             {
                 case DistanceFormula.Haversine:
                     return GetDistanceHaversine(other);
+                case DistanceFormula.SphericalLawOfCosinus:
+                    return GetDistanceSphericalLawOfCosines(other);
                 default:
                     throw new NotImplementedException();
             }
@@ -194,6 +196,14 @@ namespace StandardGIS
                      Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
 
             return EarthRadius * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
+        }
+
+        private double GetDistanceSphericalLawOfCosines(GeoCoordinate other)
+        {
+            var f1 = Latitude * Math.PI / 180;
+            var f2 = other.Latitude * Math.PI / 180;
+            var dl = (other.Longitude - Longitude) * Math.PI / 180;
+            return Math.Acos(Math.Sin(f1) * Math.Sin(f2) + Math.Cos(f1) * Math.Cos(f2) * Math.Cos(dl)) * EarthRadius;
         }
     }
 }
