@@ -21,6 +21,14 @@ namespace StandardGIS.Tests
             Assert.Throws<ArgumentOutOfRangeException>(() => new GeoCoordinate(11, lon));
         }
 
+        [Theory]
+        [InlineData(-181)]
+        [InlineData(8851)]
+        public void Ctor_AltitudeOutOfBounds_ThrowsException(double alt)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new GeoCoordinate(11, 11, alt));
+        }
+
         [Fact]
         public void HasPosition_ValidCoordinates_True()
         {

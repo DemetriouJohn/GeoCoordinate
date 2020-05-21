@@ -23,7 +23,6 @@ namespace StandardGIS
         /// </summary>
         public GeoCoordinate() : this(double.NaN, double.NaN)
         {
-
         }
 
         /// <summary>
@@ -50,9 +49,14 @@ namespace StandardGIS
                 throw new ArgumentOutOfRangeException(nameof(latitude), "Argument must be in range of -90 to 90");
             }
 
-            if (longitude> 180.0 || longitude < -180.0)
+            if (longitude > 180.0 || longitude < -180.0)
             {
-                throw new ArgumentOutOfRangeException(nameof(longitude), "Argument must be in range of -90 to 90");
+                throw new ArgumentOutOfRangeException(nameof(longitude), "Argument must be in range of -180 to 180");
+            }
+
+            if (altitude > 8850 || altitude < -153.0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(altitude), "Argument must be in range of -153 to 8850");
             }
 
             Latitude = latitude;
