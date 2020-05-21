@@ -127,5 +127,32 @@ namespace StandardGIS
         {
             return !(left == right);
         }
+
+        /// <summary>
+        ///     Returns a string that contains the latitude and longitude.
+        /// </summary>
+        /// <returns>
+        ///     A string that contains the latitude longitude and altitude, separated by a comma.
+        /// </returns>
+        public override string ToString()
+        {
+            if (this == Unknown)
+            {
+                return "Unknown";
+            }
+
+            return $"{Latitude.ToString("00.000000")}, {Longitude.ToString("00.000000")}, {Altitude.ToString("00.00")}";
+        }
+
+        /// <summary>
+        ///     Serves as a hash function for the GeoCoordinate.
+        /// </summary>
+        /// <returns>
+        ///     A hash code for the current GeoCoordinate.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            return Latitude.GetHashCode() ^ Longitude.GetHashCode();
+        }
     }
 }
