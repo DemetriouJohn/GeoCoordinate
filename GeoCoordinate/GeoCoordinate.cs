@@ -7,7 +7,7 @@ namespace StandardGIS
     /// May also include, altitude, accuracy, speed and course information
     /// </summary>
 
-    public class GeoCoordinate
+    public class GeoCoordinate : IEquatable<GeoCoordinate>
     {
         ///<summary>
         /// An empty instance of GeoCoordinate class that has unknown position
@@ -73,5 +73,28 @@ namespace StandardGIS
         /// Checks if current instance of GeoCoordinate has a valid 3D position
         ///</summary>
         public bool Has3DPosition() => HasPosition() && !double.IsNaN(Altitude);
+
+
+        /// <summary>
+        ///     Determines if the GeoCoordinate object is equivalent to the parameter, based solely on latitude and longitude.
+        /// </summary>
+        /// <returns>
+        ///     true if the GeoCoordinate objects are equal; otherwise, false.
+        /// </returns>
+        /// <param name="other">The GeoCoordinate object to compare to the calling object.</param>
+        public bool Equals(GeoCoordinate other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+
+            if (!Latitude.Equals(other.Latitude))
+            {
+                return false;
+            }
+
+            return Longitude.Equals(other.Longitude);
+        }
     }
 }

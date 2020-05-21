@@ -82,5 +82,18 @@ namespace StandardGIS.Tests
         {
             Assert.False(new GeoCoordinate(double.NaN, double.NaN, double.NaN).Has3DPosition());
         }
+
+        [Fact]
+        public void Equals_SecondObjectSameValues_True()
+        {
+            Assert.Equal(new GeoCoordinate(11, 11), new GeoCoordinate(11, 11));
+        }
+
+        [Fact]
+        public void Equals_SameObject_True()
+        {
+            var x = new GeoCoordinate(11, 11);
+            Assert.Equal(x, x);
+        }
     }
 }
