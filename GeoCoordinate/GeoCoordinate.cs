@@ -186,10 +186,10 @@ namespace StandardGIS
 
         private double GetDistanceHaversine(GeoCoordinate other)
         {
-            var d1 = Latitude * (Math.PI / 180.0);
-            var num1 = Longitude * (Math.PI / 180.0);
-            var d2 = other.Latitude * (Math.PI / 180.0);
-            var num2 = other.Longitude * (Math.PI / 180.0) - num1;
+            var d1 = Latitude * Math.PI / 180.0;
+            var num1 = Longitude * Math.PI / 180.0;
+            var d2 = other.Latitude * Math.PI / 180.0;
+            var num2 = other.Longitude * Math.PI / 180.0 - num1;
             var d3 = Math.Pow(Math.Sin((d2 - d1) / 2.0), 2.0) +
                      Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
 
