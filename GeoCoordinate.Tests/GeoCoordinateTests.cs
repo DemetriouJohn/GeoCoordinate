@@ -90,10 +90,40 @@ namespace StandardGIS.Tests
         }
 
         [Fact]
+        public void Equals_SecondObjectDiffValues_True()
+        {
+            Assert.NotEqual(new GeoCoordinate(11, 11), new GeoCoordinate(12, 11));
+        }
+
+        [Fact]
         public void Equals_SameObject_True()
         {
             var x = new GeoCoordinate(11, 11);
             Assert.Equal(x, x);
+        }
+
+        [Fact]
+        public void EqualityOperator_SecondObjectSameValues_True()
+        {
+            Assert.True(new GeoCoordinate(11, 11) == new GeoCoordinate(11, 11));
+        }
+
+        [Fact]
+        public void EqualityOperator_SecondObjectDifferentValues_True()
+        {
+            Assert.False(new GeoCoordinate(11, 11) == new GeoCoordinate(11, 12));
+        }
+
+        [Fact]
+        public void NotEqualOperator_SecondObjectSameValues_True()
+        {
+            Assert.False(new GeoCoordinate(11, 11) != new GeoCoordinate(11, 11));
+        }
+
+        [Fact]
+        public void NotEqualOperator_SecondObjectDiffValues_True()
+        {
+            Assert.True(new GeoCoordinate(11, 11) != new GeoCoordinate(12, 11));
         }
     }
 }

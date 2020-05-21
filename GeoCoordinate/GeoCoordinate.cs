@@ -96,5 +96,36 @@ namespace StandardGIS
 
             return Longitude.Equals(other.Longitude);
         }
+
+        /// <summary>
+        ///     Determines whether two GeoCoordinate objects refer to the same two dimensional location
+        /// </summary>
+        /// <returns>
+        ///     true, if the GeoCoordinate objects are determined to be equivalent; otherwise, false.
+        /// </returns>
+        /// <param name="left">The first GeoCoordinate to compare.</param>
+        /// <param name="right">The second GeoCoordinate to compare.</param>
+        public static bool operator ==(GeoCoordinate left, GeoCoordinate right)
+        {
+            if (ReferenceEquals(left, null))
+            {
+                return ReferenceEquals(right, null);
+            }
+
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        ///     Determines whether two GeoCoordinate objects correspond to different two dimensional locations.
+        /// </summary>
+        /// <returns>
+        ///     true, if the GeoCoordinate objects are determined to be different; otherwise, false.
+        /// </returns>
+        /// <param name="left">The first GeoCoordinate to compare.</param>
+        /// <param name="right">The second GeoCoordinate to compare.</param>
+        public static bool operator !=(GeoCoordinate left, GeoCoordinate right)
+        {
+            return !(left == right);
+        }
     }
 }
