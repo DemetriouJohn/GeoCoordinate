@@ -5,6 +5,22 @@ namespace StandardGIS.Tests
 {
     public class GeoCoordinateTests
     {
+        [Theory]
+        [InlineData(-91)]
+        [InlineData(91)]
+        public void Ctor_LatitudeOutOfBounds_ThrowsException(double lat)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new GeoCoordinate(lat, 11));
+        }
+
+        [Theory]
+        [InlineData(-181)]
+        [InlineData(181)]
+        public void Ctor_LongitudeOutOfBounds_ThrowsException(double lon)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new GeoCoordinate(11, lon));
+        }
+
         [Fact]
         public void HasPosition_ValidCoordinates_True()
         {
