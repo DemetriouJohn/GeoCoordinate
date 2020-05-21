@@ -9,6 +9,8 @@ namespace StandardGIS
 
     public class GeoCoordinate : IEquatable<GeoCoordinate>
     {
+        private const float EarthRadius = 6376500.0f;
+
         ///<summary>
         /// An empty instance of GeoCoordinate class that has unknown position
         ///</summary>
@@ -153,6 +155,45 @@ namespace StandardGIS
         public override int GetHashCode()
         {
             return Latitude.GetHashCode() ^ Longitude.GetHashCode();
+        }
+
+        /// <summary>
+        ///     Returns the distance between the latitude and longitude coordinates that are specified by this GeoCoordinate and
+        ///     another specified GeoCoordinate.
+        /// </summary>
+        /// <returns>
+        ///     The distance between the two coordinates, in meters.
+        /// </returns>
+        /// <param name="other">The GeoCoordinate for the location to calculate the distance to.</param>
+        /// <param name="Formula">The formula to use to calculate distance</param>
+        public double GetDistanceTo(GeoCoordinate other, DistanceFormula distanceFormula)
+        {
+            if (double.IsNaN(Latitude) || double.IsNaN(Longitude) || double.IsNaN(other.Latitude) ||
+                double.IsNaN(other.Longitude))
+            {
+                throw new ArgumentException("Argument latitude or longitude is not a number");
+            }
+
+            switch (distanceFormula)
+            {
+                case DistanceFormula.Haversine:
+                    return GetDistanceHaversine(other);
+                default:
+                    throw new NotImplementedException();
+            }
+
+        }
+
+        private double GetDistanceHaversine(GeoCoordinate other)
+        {
+            var d1 = Latitude * (Math.PI / 180.0);
+            var num1 = Longitude * (Math.PI / 180.0);
+            var d2 = other.Latitude * (Math.PI / 180.0);
+            var num2 = other.Longitude * (Math.PI / 180.0) - num1;
+            var d3 = Math.Pow(Math.Sin((d2 - d1) / 2.0), 2.0) +
+                     Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
+
+            return EarthRadius * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
         }
     }
 }
