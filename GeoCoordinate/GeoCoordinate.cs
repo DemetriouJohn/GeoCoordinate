@@ -5,6 +5,7 @@ namespace ExtendedGeoCoordinate
     /// <summary>
     /// Represents a geographical location that is determined by latitude and longitude coordinates.
     /// May also include, altitude, accuracy, speed and course information
+    /// Instances of this class are immutable 
     /// </summary>
 
     public class GeoCoordinate : IEquatable<GeoCoordinate>
