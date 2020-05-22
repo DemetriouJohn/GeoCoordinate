@@ -148,7 +148,7 @@ namespace ExtendedGeoCoordinate.Tests
             Assert.Equal(expected, distance, 9);
         }
 
-                [Fact]
+        [Fact]
         public void GeoCoordinate_GetDistanceToUsingVicenty_ReturnsExpectedDistance()
         {
             var start = new GeoCoordinate(1, 1);
@@ -157,6 +157,18 @@ namespace ExtendedGeoCoordinate.Tests
             var expected = 62642.77580421;
 
             Assert.Equal(expected, distance, 9);
+        }
+
+        [Fact]
+        public void IsUnknown_WithUnknown_True()
+        {
+            Assert.True(new GeoCoordinate().IsUnknown);
+        }
+
+        [Fact]
+        public void IsUnknown_With2DPosition_False()
+        {
+            Assert.False(new GeoCoordinate(11, 11).IsUnknown);
         }
     }
 }

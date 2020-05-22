@@ -185,8 +185,15 @@ namespace ExtendedGeoCoordinate
                 default:
                     throw new NotImplementedException();
             }
-
         }
+
+        /// <summary>
+        ///     Gets a value that indicates whether the GeoCoordinate does not contain either latitude or longitude data.
+        /// </summary>
+        /// <returns>
+        ///     true if the GeoCoordinate does not contain latitude or longitude data; otherwise, false.
+        /// </returns>
+        public bool IsUnknown => Equals(Unknown);
 
         /// <summary>
         ///     Determines if a specified GeoCoordinate is equal to the current GeoCoordinate, based solely on 2D position
