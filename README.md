@@ -9,7 +9,7 @@ Project is not complete so expect updates (current version is 0.2.1).
 Differences between this class and the Microsoft default class are
 
 <ol>
-  <li> Object is immutable. Once create, it can not be edited.</li>
+  <li> Object is immutable. Once created, it can not be edited.</li>
   <li> Distance calculation can be done in three possible ways (using three different formulas)
     <ul><li>Haversine Formula</li>
     <li>Spherical law of Cosines</li>
