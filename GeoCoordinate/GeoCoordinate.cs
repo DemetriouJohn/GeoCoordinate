@@ -78,7 +78,7 @@ namespace StandardGIS
 
 
         /// <summary>
-        ///     Determines if the GeoCoordinate object is equivalent to the parameter, based solely on latitude and longitude.
+        ///     Determines if the GeoCoordinate object is equivalent to the parameter, based solely on 2D position
         /// </summary>
         /// <returns>
         ///     true if the GeoCoordinate objects are equal; otherwise, false.
@@ -186,6 +186,18 @@ namespace StandardGIS
                     throw new NotImplementedException();
             }
 
+        }
+
+        /// <summary>
+        ///     Determines if a specified GeoCoordinate is equal to the current GeoCoordinate, based solely on 2D position
+        /// </summary>
+        /// <returns>
+        ///     true, if the GeoCoordinate objects are equal; otherwise, false.
+        /// </returns>
+        /// <param name="obj">The object to compare the GeoCoordinate to.</param>
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as GeoCoordinate);
         }
 
         private double GetDistanceVicenty(GeoCoordinate other)
