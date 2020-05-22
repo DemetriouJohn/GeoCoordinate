@@ -188,10 +188,10 @@ namespace ExtendedGeoCoordinate
         }
 
         /// <summary>
-        ///     Gets a value that indicates whether the GeoCoordinate does not contain either latitude or longitude data.
+        ///     Gets a value that indicates whether the GeoCoordinate does not contain either latitude and longitude data.
         /// </summary>
         /// <returns>
-        ///     true if the GeoCoordinate does not contain latitude or longitude data; otherwise, false.
+        ///     true if the GeoCoordinate does not contain latitude and longitude data; otherwise, false.
         /// </returns>
         public bool IsUnknown => Equals(Unknown);
 
