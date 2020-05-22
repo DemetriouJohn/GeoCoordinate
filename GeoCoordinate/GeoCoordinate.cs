@@ -20,6 +20,10 @@ namespace ExtendedGeoCoordinate
         public double Latitude { get; }
         public double Longitude { get; }
         public double Altitude { get; }
+        public double HorizontalAccuracy { get; }
+        public double VerticalAccuracy { get; }
+        public double Speed { get; }
+        public double Course { get; }
 
         /// <summary>
         /// Initializes a new instance of GeoCoordinate that has no data fields set.
@@ -46,6 +50,36 @@ namespace ExtendedGeoCoordinate
         /// <param name="altitude">The altitude in meters. May be negative, 0, positive, or Double.NaN, if unknown.</param>
         /// <exception cref="T:System.ArgumentOutOfRangeException">Latitude or longitude is out of range.</exception>
         public GeoCoordinate(double latitude, double longitude, double altitude)
+            : this(latitude, longitude, altitude, double.NaN, double.NaN, double.NaN, double.NaN)
+        {
+        }
+
+        public GeoCoordinate(double latitude,
+            double longitude,
+            double altitude,
+            double horizontalAccuracy,
+            double verticalAccuracy,
+            double speed,
+            double course)
+        {
+            ValidateInput(latitude, longitude, altitude, horizontalAccuracy, verticalAccuracy, speed, course);
+
+            Latitude = latitude;
+            Longitude = longitude;
+            Altitude = altitude;
+            HorizontalAccuracy = horizontalAccuracy;
+            VerticalAccuracy = verticalAccuracy;
+            Speed = speed;
+            Course = course;
+        }
+
+        private static void ValidateInput(double latitude,
+            double longitude,
+            double altitude,
+            double horizontalAccuracy,
+            double verticalAccuracy,
+            double speed,
+            double course)
         {
             if (latitude > 90.0 || latitude < -90.0)
             {
@@ -62,9 +96,24 @@ namespace ExtendedGeoCoordinate
                 throw new ArgumentOutOfRangeException(nameof(altitude), "Argument must be in range of -153 to 8850");
             }
 
-            Latitude = latitude;
-            Longitude = longitude;
-            Altitude = altitude;
+            if (horizontalAccuracy < 0.0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(horizontalAccuracy), "Argument must be non negative");
+            }
+
+            if (verticalAccuracy < 0.0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(verticalAccuracy), "Argument must be non negative");
+            }
+
+            if (speed < 0.0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(speed), "Argument must be non negative");
+            }
+            if (course < 0.0 || course > 360.0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(course), "Argument must be in range 0 to 360");
+            }
         }
 
         ///<summary>

@@ -5,6 +5,35 @@ namespace ExtendedGeoCoordinate.Tests
 {
     public class GeoCoordinateTests
     {
+
+        [Fact]
+        public void Ctor_HorizontalAccuracyOutOfBounds_ThrowsException()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new GeoCoordinate(11, 11, 11, -1, 1, 1, 1));
+        }
+
+        [Fact]
+        public void Ctor_VerticalAccuracyOutOfBounds_ThrowsException()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new GeoCoordinate(11, 11, 11, 1, -1, 1, 1));
+        }
+
+        [Fact]
+        public void Ctor_SpeedOutOfBounds_ThrowsException()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new GeoCoordinate(11, 11, 11, 1, 1, -1, 1));
+        }
+
+
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(361)]
+        public void Ctor_CourseOutOfBounds_ThrowsException(double course)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new GeoCoordinate(11, 11, 11, 1, 1, 1, course));
+        }
+
+
         [Theory]
         [InlineData(-91)]
         [InlineData(91)]
