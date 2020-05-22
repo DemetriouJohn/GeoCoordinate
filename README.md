@@ -4,7 +4,7 @@ A re-implementation of GeoCoordinate class for .Net standard.</br>
 This class is not an exact clone of System.Device.Location but an extension of the functionality of the original.</br>
 You can install package by calling `Install-Package ExtendedGeoCoordinate`
 
-Project is not complete so expect updates (current version is 0.2.1).
+Project is not complete so expect updates (current version is 0.3).
 
 Differences between this class and the Microsoft default class are
 
