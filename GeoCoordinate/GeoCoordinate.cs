@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StandardGIS
+namespace ExtendedGeoCoordinate
 {
     /// <summary>
     /// Represents a geographical location that is determined by latitude and longitude coordinates.

@@ -1,4 +1,4 @@
-namespace StandardGIS
+namespace ExtendedGeoCoordinate
 {
     public enum DistanceFormula
     {

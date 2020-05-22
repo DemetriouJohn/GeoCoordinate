@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace StandardGIS.Tests
+namespace ExtendedGeoCoordinate.Tests
 {
     public class GeoCoordinateTests
     {
