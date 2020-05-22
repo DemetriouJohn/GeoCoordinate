@@ -69,13 +69,20 @@ namespace ExtendedGeoCoordinate
         ///<summary>
         /// Checks if current instance of GeoCoordinate has a valid position
         ///</summary>
-        public bool HasPosition() => !double.IsNaN(Latitude) && !double.IsNaN(Longitude);
+        public bool IsGoodPosition => !double.IsNaN(Latitude) && !double.IsNaN(Longitude);
 
         ///<summary>
         /// Checks if current instance of GeoCoordinate has a valid 3D position
         ///</summary>
-        public bool Has3DPosition() => HasPosition() && !double.IsNaN(Altitude);
+        public bool Is3DPosition => IsGoodPosition && !double.IsNaN(Altitude);
 
+        /// <summary>
+        ///     Gets a value that indicates whether the GeoCoordinate does not contain either latitude and longitude data.
+        /// </summary>
+        /// <returns>
+        ///     true if the GeoCoordinate does not contain latitude and longitude data; otherwise, false.
+        /// </returns>
+        public bool IsUnknown => Equals(Unknown);
 
         /// <summary>
         ///     Determines if the GeoCoordinate object is equivalent to the parameter, based solely on 2D position
@@ -186,14 +193,6 @@ namespace ExtendedGeoCoordinate
                     throw new NotImplementedException();
             }
         }
-
-        /// <summary>
-        ///     Gets a value that indicates whether the GeoCoordinate does not contain either latitude and longitude data.
-        /// </summary>
-        /// <returns>
-        ///     true if the GeoCoordinate does not contain latitude and longitude data; otherwise, false.
-        /// </returns>
-        public bool IsUnknown => Equals(Unknown);
 
         /// <summary>
         ///     Determines if a specified GeoCoordinate is equal to the current GeoCoordinate, based solely on 2D position

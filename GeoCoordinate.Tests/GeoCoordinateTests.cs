@@ -30,57 +30,57 @@ namespace ExtendedGeoCoordinate.Tests
         }
 
         [Fact]
-        public void HasPosition_ValidCoordinates_True()
+        public void IsGoodPosition_ValidCoordinates_True()
         {
-            Assert.True(new GeoCoordinate(11, 11).HasPosition());
+            Assert.True(new GeoCoordinate(11, 11).IsGoodPosition);
         }
 
         [Fact]
-        public void HasPosition_InValidLat_False()
+        public void IsGoodPosition_InValidLat_False()
         {
-            Assert.False(new GeoCoordinate(double.NaN, 11).HasPosition());
+            Assert.False(new GeoCoordinate(double.NaN, 11).IsGoodPosition);
         }
 
         [Fact]
-        public void HasPosition_InValidLon_False()
+        public void IsGoodPosition_InValidLon_False()
         {
-            Assert.False(new GeoCoordinate(11, double.NaN).HasPosition());
+            Assert.False(new GeoCoordinate(11, double.NaN).IsGoodPosition);
         }
 
         [Fact]
-        public void HasPosition_InValidCoordinates_False()
+        public void IsGoodPosition_InValidCoordinates_False()
         {
-            Assert.False(new GeoCoordinate(double.NaN, double.NaN).HasPosition());
+            Assert.False(new GeoCoordinate(double.NaN, double.NaN).IsGoodPosition);
         }
 
         [Fact]
-        public void Has3DPosition_ValidCoordinates_True()
+        public void Is3DPosition_ValidCoordinates_True()
         {
-            Assert.True(new GeoCoordinate(11, 11, 11).Has3DPosition());
+            Assert.True(new GeoCoordinate(11, 11, 11).Is3DPosition);
         }
 
         [Fact]
-        public void Has3DPosition_InValidLat_False()
+        public void Is3DPosition_InValidLat_False()
         {
-            Assert.False(new GeoCoordinate(double.NaN, 11, 11).Has3DPosition());
+            Assert.False(new GeoCoordinate(double.NaN, 11, 11).Is3DPosition);
         }
 
         [Fact]
-        public void Has3DPosition_InValidLon_False()
+        public void Is3DPosition_InValidLon_False()
         {
-            Assert.False(new GeoCoordinate(11, double.NaN, 11).Has3DPosition());
+            Assert.False(new GeoCoordinate(11, double.NaN, 11).Is3DPosition);
         }
 
         [Fact]
-        public void Has3DPosition_InValidAlt_False()
+        public void Is3DPosition_InValidAlt_False()
         {
-            Assert.False(new GeoCoordinate(11, 11, double.NaN).Has3DPosition());
+            Assert.False(new GeoCoordinate(11, 11, double.NaN).Is3DPosition);
         }
 
         [Fact]
-        public void Has3DPosition_InValidCoordinates_False()
+        public void Is3DPosition_InValidCoordinates_False()
         {
-            Assert.False(new GeoCoordinate(double.NaN, double.NaN, double.NaN).Has3DPosition());
+            Assert.False(new GeoCoordinate(double.NaN, double.NaN, double.NaN).Is3DPosition);
         }
 
         [Fact]
