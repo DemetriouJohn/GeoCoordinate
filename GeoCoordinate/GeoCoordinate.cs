@@ -216,7 +216,20 @@ namespace ExtendedGeoCoordinate
 
         /// <summary>
         ///     Returns the distance between the latitude and longitude coordinates that are specified by this GeoCoordinate and
-        ///     another specified GeoCoordinate.
+        ///     another specified GeoCoordinate using Haversine
+        /// </summary>
+        /// <returns>
+        ///     The distance between the two coordinates, in meters.
+        /// </returns>
+        /// <param name="other">The GeoCoordinate for the location to calculate the distance to.</param>
+        public double GetDistanceTo(GeoCoordinate other)
+        {
+            return GetDistanceTo(other, DistanceFormula.Haversine);
+        }
+
+        /// <summary>
+        ///     Returns the distance between the latitude and longitude coordinates that are specified by this GeoCoordinate and
+        ///     another specified GeoCoordinate using the defined formula
         /// </summary>
         /// <returns>
         ///     The distance between the two coordinates, in meters.
@@ -327,6 +340,11 @@ namespace ExtendedGeoCoordinate
             var f2 = other.Latitude * Math.PI / 180;
             var dl = (other.Longitude - Longitude) * Math.PI / 180;
             return Math.Acos(Math.Sin(f1) * Math.Sin(f2) + Math.Cos(f1) * Math.Cos(f2) * Math.Cos(dl)) * EarthRadius;
+        }
+
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            throw new NotImplementedException();
         }
     }
 }

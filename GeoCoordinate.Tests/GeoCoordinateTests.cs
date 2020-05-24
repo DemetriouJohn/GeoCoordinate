@@ -167,6 +167,16 @@ namespace ExtendedGeoCoordinate.Tests
         }
 
         [Fact]
+        public void GeoCoordinate_GetDistanceToUsingDefault_ReturnsExpectedDistance()
+        {
+            var start = new GeoCoordinate(1, 1);
+            var end = new GeoCoordinate(5, 5);
+            var distance = start.GetDistanceTo(end, DistanceFormula.Haversine);
+
+            Assert.Equal(start.GetDistanceTo(end, DistanceFormula.Haversine), start.GetDistanceTo(end), 9);
+        }
+
+        [Fact]
         public void GeoCoordinate_GetDistanceToUsingSphericalLawOfCosinus_ReturnsExpectedDistance()
         {
             var start = new GeoCoordinate(1, 1);
