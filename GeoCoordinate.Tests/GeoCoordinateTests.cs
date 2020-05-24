@@ -5,7 +5,6 @@ namespace ExtendedGeoCoordinate.Tests
 {
     public class GeoCoordinateTests
     {
-
         [Fact]
         public void Ctor_HorizontalAccuracyOutOfBounds_ThrowsException()
         {
@@ -24,7 +23,6 @@ namespace ExtendedGeoCoordinate.Tests
             Assert.Throws<ArgumentOutOfRangeException>(() => new GeoCoordinate(11, 11, 11, 1, 1, -1, 1));
         }
 
-
         [Theory]
         [InlineData(-1)]
         [InlineData(361)]
@@ -32,7 +30,6 @@ namespace ExtendedGeoCoordinate.Tests
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => new GeoCoordinate(11, 11, 11, 1, 1, 1, course));
         }
-
 
         [Theory]
         [InlineData(-91)]
@@ -208,6 +205,14 @@ namespace ExtendedGeoCoordinate.Tests
         public void IsUnknown_With2DPosition_False()
         {
             Assert.False(new GeoCoordinate(11, 11).IsUnknown);
+        }
+
+        [Fact]
+        public void ToString_DMSFormat_CorrectValue()
+        {
+            var expected = "Latitude: 33° 13' 30.00, Longitude: 33° 47' 22.04, Altitude: 11.00";
+            var geo = new GeoCoordinate(33.225, 33.789456, 11);
+            Assert.Equal(expected, geo.ToString(CoordinateFormat.DMS));
         }
     }
 }

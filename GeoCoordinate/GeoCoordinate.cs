@@ -188,7 +188,7 @@ namespace ExtendedGeoCoordinate
         }
 
         /// <summary>
-        ///     Returns a string that contains the latitude and longitude.
+        ///     Returns a string that contains the latitude and longitude in Decimal format
         /// </summary>
         /// <returns>
         ///     A string that contains the latitude longitude and altitude, separated by a comma.
@@ -200,7 +200,39 @@ namespace ExtendedGeoCoordinate
                 return "Unknown";
             }
 
-            return $"{Latitude.ToString("00.000000")}, {Longitude.ToString("00.000000")}, {Altitude.ToString("00.00")}";
+            return $"Latitude: {Latitude.ToString("00.000000")}, {Longitude.ToString("00.000000")}, {Altitude.ToString("00.00")}";
+        }
+
+        public string ToString(CoordinateFormat coordinateFormat)
+        {
+            switch (coordinateFormat)
+            {
+                case CoordinateFormat.Decimal:
+                    return this.ToString();
+                case CoordinateFormat.DMS:
+                    return ConvertPositionToDMS();
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(coordinateFormat));
+            }
+        }
+
+        private string ConvertPositionToDMS()
+        {
+            if (this == Unknown)
+            {
+                return "Unknown";
+            }
+
+            return $"Latitude: {GetDMS(Latitude)}, Longitude: {GetDMS(Longitude)}, Altitude: {Altitude.ToString("00.00")}";
+        }
+
+        private string GetDMS(double coordinate)
+        {
+            var degrees = Convert.ToInt32(Math.Truncate(coordinate));
+            var minutes = Convert.ToInt32(Math.Truncate((coordinate - degrees) * 60));
+            var seconds = (((coordinate - degrees) * 60) - minutes) * 60;
+            var dmsString = degrees.ToString() + "° " + minutes.ToString() + "' " + ((double)seconds).ToString("0.00");
+            return dmsString;
         }
 
         /// <summary>
@@ -222,7 +254,7 @@ namespace ExtendedGeoCoordinate
         ///     The distance between the two coordinates, in meters.
         /// </returns>
         /// <param name="other">The GeoCoordinate for the location to calculate the distance to.</param>
-        [Obsolete("This method has been deprecated use GetDistanceTo(GeoCoordinate other, DistanceFormula distanceFormula) instead")]
+        [Obsolete("This method has been deprecated. Use GetDistanceTo(GeoCoordinate other, DistanceFormula distanceFormula) instead")]
         public double GetDistanceTo(GeoCoordinate other)
         {
             return GetDistanceTo(other, DistanceFormula.Haversine);
@@ -341,11 +373,6 @@ namespace ExtendedGeoCoordinate
             var f2 = other.Latitude * Math.PI / 180;
             var dl = (other.Longitude - Longitude) * Math.PI / 180;
             return Math.Acos(Math.Sin(f1) * Math.Sin(f2) + Math.Cos(f1) * Math.Cos(f2) * Math.Cos(dl)) * EarthRadius;
-        }
-
-        public string ToString(string format, IFormatProvider formatProvider)
-        {
-            throw new NotImplementedException();
         }
     }
 }
