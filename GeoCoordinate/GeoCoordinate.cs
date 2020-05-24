@@ -222,6 +222,7 @@ namespace ExtendedGeoCoordinate
         ///     The distance between the two coordinates, in meters.
         /// </returns>
         /// <param name="other">The GeoCoordinate for the location to calculate the distance to.</param>
+        [Obsolete("This method has been deprecated use GetDistanceTo(GeoCoordinate other, DistanceFormula distanceFormula) instead")]
         public double GetDistanceTo(GeoCoordinate other)
         {
             return GetDistanceTo(other, DistanceFormula.Haversine);
