@@ -14,4 +14,5 @@ Differences between this class and the Microsoft default class are
     <ul><li>Haversine Formula</li>
     <li>Spherical law of Cosines</li>
     <li>Vicenty's formula</li></ul></li>
+  <li>ToString method has overload for printing in DMS format</li>
   </ol>
