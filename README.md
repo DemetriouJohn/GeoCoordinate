@@ -17,3 +17,5 @@ Differences between this class and the Microsoft default class are
 
 
 Project will be supported, maintained and upgraded until Microsoft ports GeoCoordinate class to .Net Standard. 
+
+Link to nuget Gallery [here](https://www.nuget.org/packages/ExtendedGeoCoordinate/)
