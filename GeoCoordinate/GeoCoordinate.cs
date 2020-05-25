@@ -203,6 +203,12 @@ namespace ExtendedGeoCoordinate
             return $"Latitude: {Latitude.ToString("00.000000")}, {Longitude.ToString("00.000000")}, {Altitude.ToString("00.00")}";
         }
 
+        /// <summary>
+        ///     Returns a string that contains the latitude and longitude in the specified format
+        /// </summary>
+        /// <returns>
+        ///     A string that contains the latitude longitude and altitude, separated by a comma.
+        /// </returns>
         public string ToString(CoordinateFormat coordinateFormat)
         {
             switch (coordinateFormat)
@@ -215,6 +221,40 @@ namespace ExtendedGeoCoordinate
                     throw new ArgumentOutOfRangeException(nameof(coordinateFormat));
             }
         }
+
+        /// <summary>
+        ///     Calculates forward azimuth from one point to the next
+        /// </summary>
+        /// <returns>
+        ///     A double that represents the azimuth of the two points
+        /// </returns>
+        public double GetBearing(GeoCoordinate other)
+        {
+            double lat1 = DegreesToRadians(Latitude);
+            double lon1 = DegreesToRadians(Longitude);
+            double lat2 = DegreesToRadians(other.Latitude);
+            double lon2 = DegreesToRadians(other.Longitude);
+            double x = Math.Cos(lat1)
+             * Math.Sin(lat2) - Math.Sin(lat1)
+             * Math.Cos(lat2)
+             * Math.Cos(lon2 - lon1);
+
+            double y = Math.Sin(lon2 - lon1) * Math.Cos(lat2);
+
+            // Math.Atan2 can return negative value, 0 <= output value < 2*PI expected 
+            return RadiansToDegrees((Math.Atan2(y, x) + Math.PI * 2) % (Math.PI * 2));
+        }
+
+        private static double DegreesToRadians(double angle)
+        {
+            return angle * Math.PI / 180.0;
+        }
+
+        private static double RadiansToDegrees(double angle)
+        {
+            return angle * 180.0 / Math.PI;
+        }
+
 
         private string ConvertPositionToDMS()
         {

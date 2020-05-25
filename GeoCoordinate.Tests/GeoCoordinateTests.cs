@@ -214,5 +214,21 @@ namespace ExtendedGeoCoordinate.Tests
             var geo = new GeoCoordinate(33.225, 33.789456, 11);
             Assert.Equal(expected, geo.ToString(CoordinateFormat.DMS));
         }
+
+        [Fact]
+        public void GetBearing_North_CorrectResult()
+        {
+            var point1 = new GeoCoordinate(37, 30);
+            var point2 = new GeoCoordinate(38, 30);
+            Assert.Equal(0, point1.GetBearing(point2));
+        }
+
+        [Fact]
+        public void GetBearing_South_CorrectResult()
+        {
+            var point1 = new GeoCoordinate(39, 30);
+            var point2 = new GeoCoordinate(38, 30);
+            Assert.Equal(180, point1.GetBearing(point2));
+        }
     }
 }
