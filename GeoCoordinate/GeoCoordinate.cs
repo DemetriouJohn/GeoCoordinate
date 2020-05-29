@@ -1,4 +1,5 @@
 ﻿using System;
+using SmartExtensions;
 
 namespace ExtendedGeoCoordinate
 {
@@ -371,24 +372,25 @@ namespace ExtendedGeoCoordinate
             double diff = 1;
             while (Math.Abs(diff) > tol)
             {
-                sinSigma = Math.Sqrt(Math.Pow((Math.Cos(u2) * Math.Sin(lam)), 2) + Math.Pow(Math.Cos(u1) * Math.Sin(u2) - Math.Sin(u1) * Math.Cos(u2) * Math.Cos(lam), 2));
+                sinSigma = Math.Sqrt((Math.Cos(u2) * Math.Sin(lam)).Pow(2) 
+                + (Math.Cos(u1) * Math.Sin(u2) - Math.Sin(u1) * Math.Cos(u2) * Math.Cos(lam)).Pow(2));
                 cosSigma = Math.Sin(u1) * Math.Sin(u2) + Math.Cos(u1) * Math.Cos(u2) * Math.Cos(lam);
                 sigma = Math.Atan(sinSigma / cosSigma);
                 sin_alpha = (Math.Cos(u1) * Math.Cos(u2) * Math.Sin(lam)) / sinSigma;
-                cosSqAlpha = 1 - Math.Pow(sin_alpha, 2);
+                cosSqAlpha = 1 - sin_alpha.Pow(2);
                 cos2sigma = cosSigma - ((2 * Math.Sin(u1) * Math.Sin(u2)) / cosSqAlpha);
                 C = (flat / 16) * cosSqAlpha * (4 + flat * (4 - 3 * cosSqAlpha));
                 lam_pre = lam;
-                lam = lon + (1 - C) * flat * sin_alpha * (sigma + C * sinSigma * (cos2sigma + C * cosSigma * (2 * Math.Pow(cos2sigma, 2) - 1)));
+                lam = lon + (1 - C) * flat * sin_alpha * (sigma + C * sinSigma * (cos2sigma + C * cosSigma * (2 * cos2sigma.Pow(2) - 1)));
                 diff = Math.Abs(lam_pre - lam);
             }
 
-            double usq = cosSqAlpha * ((Math.Pow(EarthRadius, 2) - Math.Pow(rpol, 2)) / Math.Pow(rpol, 2));
+            double usq = cosSqAlpha * ((EarthRadius.Pow(2) - rpol.Pow(2)) / rpol.Pow(2));
             double A = 1 + (usq / 16384) * (4096 + usq * (-768 + usq * (320 - 175 * usq)));
             double B = (usq / 1024) * (256 + usq * (-128 + usq * (74 - 47 * usq)));
-            double delta_sig = B * sinSigma * (cos2sigma + 0.25 * B * (cosSigma * (-1 + 2 * Math.Pow(cos2sigma, 2)) -
-                                                                 (1 / 6) * B * cos2sigma * (-3 + 4 * Math.Pow(sinSigma, 2)) *
-                                                                 (-3 + 4 * Math.Pow(cos2sigma, 2))));
+            double delta_sig = B * sinSigma * (cos2sigma + 0.25 * B * (cosSigma * (-1 + 2 * cos2sigma.Pow(2)) -
+                                                                 (1 / 6) * B * cos2sigma * (-3 + 4 * sinSigma.Pow(2)) *
+                                                                 (-3 + 4 * cos2sigma.Pow(2))));
             double dis = rpol * A * (sigma - delta_sig);
             double azi1 = Math.Atan2((Math.Cos(u2) * Math.Sin(lam)), (Math.Cos(u1) * Math.Sin(u2) - Math.Sin(u1) * Math.Cos(u2) * Math.Cos(lam)));
 
@@ -401,8 +403,8 @@ namespace ExtendedGeoCoordinate
             var num1 = Longitude * Math.PI / 180.0;
             var d2 = other.Latitude * Math.PI / 180.0;
             var num2 = other.Longitude * Math.PI / 180.0 - num1;
-            var d3 = Math.Pow(Math.Sin((d2 - d1) / 2.0), 2.0) +
-                     Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
+            var d3 = (Math.Sin((d2 - d1) / 2.0)).Pow(2.0) +
+                     Math.Cos(d1) * Math.Cos(d2) * (Math.Sin(num2 / 2.0)).Pow(2.0);
 
             return EarthRadius * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
         }

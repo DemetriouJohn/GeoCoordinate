@@ -2,11 +2,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <PackageId>ExtendedGeoCoordinate</PackageId>
-    <Version>2</Version>
+    <Version>2.1.0</Version>
     <Authors>John Demetriou</Authors>
     <Company>devsanon</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageDescription>A port of GeoCoordinate class to .Net Standard along with some extended functionality</PackageDescription>
-     <RootNamespace>ExtendedGeoCoordinate</RootNamespace>
+    <RootNamespace>ExtendedGeoCoordinate</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SmartExtensionMethods" Version="0.4.0"/>
+  </ItemGroup>
 </Project>
