@@ -13,7 +13,7 @@ Differences between this class and the Microsoft default class are
     <li>Spherical law of Cosines</li>
     <li>Vicenty's formula</li></ul></li>
   <li>ToString method has overload for printing in DMS format</li>
-  <li>Added GetBearing method to calculate azimuth between two points</li>
+  <li>GetBearing method to calculate azimuth between two points</li>
   </ol>
 
 
