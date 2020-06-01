@@ -25,4 +25,4 @@ jobs:
     - name: Install dependencies for test project
       run: dotnet restore ~/work/GeoCoordinate/GeoCoordinate/GeoCoordinate.Test/
     - name: Test
-      run: dotnet test ~/work/GeoCoordinate/GeoCoordinate/GeoCoordinate.Test/GeoCoordinate.Test.csproj --no-restore --verbosity normal
+      run: dotnet test ~/work/GeoCoordinate/GeoCoordinate/GeoCoordinate.Tests/GeoCoordinate.Tests.csproj --no-restore --verbosity normal
