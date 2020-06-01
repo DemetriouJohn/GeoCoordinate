@@ -23,6 +23,6 @@ jobs:
     - name: Build
       run: dotnet build ~/work/GeoCoordinate/GeoCoordinate/GeoCoordinate/GeoCoordinate.csproj --configuration Release --no-restore
     - name: Install dependencies for test project
-      run: dotnet restore ~/work/GeoCoordinate/GeoCoordinate/GeoCoordinate.Test/
+      run: dotnet restore ~/work/GeoCoordinate/GeoCoordinate/GeoCoordinate.Tests/
     - name: Test
       run: dotnet test ~/work/GeoCoordinate/GeoCoordinate/GeoCoordinate.Tests/GeoCoordinate.Tests.csproj --no-restore --verbosity normal
