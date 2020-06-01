@@ -1,5 +1,7 @@
 # GeoCoordinate
 
+![.NET Core Build and Run Unit Tests](https://github.com/DevsAnon/GeoCoordinate/workflows/.NET%20Core%20Build%20and%20Run%20Unit%20Tests/badge.svg?event=push)
+
 A re-implementation of GeoCoordinate class for .Net standard.</br>
 This class is not an exact clone of System.Device.Location but an extension of the functionality of the original.</br>
 You can install package by calling `Install-Package ExtendedGeoCoordinate`
