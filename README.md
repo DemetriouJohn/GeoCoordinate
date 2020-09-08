@@ -16,6 +16,7 @@ Differences between this class and the Microsoft default class are
     <li>Vicenty's formula</li></ul></li>
   <li>ToString method has overload for printing in DMS format</li>
   <li>GetBearing method to calculate azimuth between two points</li>
+  <li>Deconstructors exist to break down the object to Lat/Lon and Lat/Lon/Alt</li>
   </ol>
 
 
