@@ -230,5 +230,15 @@ namespace ExtendedGeoCoordinate.Tests
             var point2 = new GeoCoordinate(38, 30);
             Assert.Equal(180, point1.GetBearing(point2));
         }
+
+        [Fact]
+        public void Deconstruct()
+        {
+            var coord = new GeoCoordinate(39, 30, 5);
+            var (lat, lon, alt) = coord;
+            Assert.Equal(coord.Latitude, lat);
+            Assert.Equal(coord.Longitude, lon);
+            Assert.Equal(coord.Altitude, alt);
+        }
     }
 }

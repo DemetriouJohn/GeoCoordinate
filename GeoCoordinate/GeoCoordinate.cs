@@ -372,7 +372,7 @@ namespace ExtendedGeoCoordinate
             double diff = 1;
             while (Math.Abs(diff) > tol)
             {
-                sinSigma = Math.Sqrt((Math.Cos(u2) * Math.Sin(lam)).Pow(2) 
+                sinSigma = Math.Sqrt((Math.Cos(u2) * Math.Sin(lam)).Pow(2)
                 + (Math.Cos(u1) * Math.Sin(u2) - Math.Sin(u1) * Math.Cos(u2) * Math.Cos(lam)).Pow(2));
                 cosSigma = Math.Sin(u1) * Math.Sin(u2) + Math.Cos(u1) * Math.Cos(u2) * Math.Cos(lam);
                 sigma = Math.Atan(sinSigma / cosSigma);
@@ -415,6 +415,19 @@ namespace ExtendedGeoCoordinate
             var f2 = other.Latitude * Math.PI / 180;
             var dl = (other.Longitude - Longitude) * Math.PI / 180;
             return Math.Acos(Math.Sin(f1) * Math.Sin(f2) + Math.Cos(f1) * Math.Cos(f2) * Math.Cos(dl)) * EarthRadius;
+        }
+
+        public void Deconstruct(out double latitude, out double longitude)
+        {
+            latitude = Latitude;
+            longitude = Longitude;
+        }
+
+        public void Deconstruct(out double latitude, out double longitude, out double altitude)
+        {
+            latitude = Latitude;
+            longitude = Longitude;
+            altitude = Altitude;
         }
     }
 }
