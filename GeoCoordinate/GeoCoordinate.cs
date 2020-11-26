@@ -21,6 +21,7 @@ namespace ExtendedGeoCoordinate
         public double Latitude { get; }
         public double Longitude { get; }
         public double Altitude { get; }
+        public string AltitudeUnits { get; }
         public double HorizontalAccuracy { get; }
         public double VerticalAccuracy { get; }
         public double Speed { get; }
@@ -51,7 +52,12 @@ namespace ExtendedGeoCoordinate
         /// <param name="altitude">The altitude in meters. May be negative, 0, positive, or Double.NaN, if unknown.</param>
         /// <exception cref="T:System.ArgumentOutOfRangeException">Latitude or longitude is out of range.</exception>
         public GeoCoordinate(double latitude, double longitude, double altitude)
-            : this(latitude, longitude, altitude, double.NaN, double.NaN, double.NaN, double.NaN)
+            : this(latitude, longitude, altitude, string.Empty)
+        {
+        }
+
+        public GeoCoordinate(double latitude, double longitude, double altitude, string altitudeUnits)
+            : this(latitude, longitude, altitude, altitudeUnits, double.NaN, double.NaN, double.NaN, double.NaN)
         {
         }
 
@@ -62,12 +68,25 @@ namespace ExtendedGeoCoordinate
             double verticalAccuracy,
             double speed,
             double course)
+            : this(latitude, longitude, altitude, string.Empty, horizontalAccuracy, verticalAccuracy, speed, course)
+        {
+        }
+
+        public GeoCoordinate(double latitude,
+            double longitude,
+            double altitude,
+            string altitudeUnits,
+            double horizontalAccuracy,
+            double verticalAccuracy,
+            double speed,
+            double course)
         {
             ValidateInput(latitude, longitude, altitude, horizontalAccuracy, verticalAccuracy, speed, course);
 
             Latitude = latitude;
             Longitude = longitude;
             Altitude = altitude;
+            AltitudeUnits = altitudeUnits;
             HorizontalAccuracy = horizontalAccuracy;
             VerticalAccuracy = verticalAccuracy;
             Speed = speed;
@@ -201,7 +220,7 @@ namespace ExtendedGeoCoordinate
                 return "Unknown";
             }
 
-            return $"Latitude: {Latitude.ToString("00.000000")}, {Longitude.ToString("00.000000")}, {Altitude.ToString("00.00")}";
+            return $"Latitude: {Latitude.ToString("00.000000")}, {Longitude.ToString("00.000000")}, {Altitude.ToString("00.00")}{AltitudeUnits}";
         }
 
         /// <summary>
